@@ -8,12 +8,74 @@
 
 
     <LinearLayout
-        android:orientation="vertical"
-        android:background="@color/colorAccent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackgroundDark"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="20dp"
+            android:scaleType="center"
+            android:src="@mipmap/logo" />
+
+        <TextView
+            android:background="@color/colorBackgorundLight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/login_title"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="15pt" />
 
 
+        <EditText
+            android:layout_marginTop="50dp"
+            android:layout_marginHorizontal="20dp"
+            android:background="@color/colorWhite"
+            android:textColorHint="@color/colorBackgroundDark"
+            android:textAlignment="center"
+            android:hint="@string/email"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="40dp" />
+
+        <EditText
+            android:password="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="20dp"
+            android:background="@color/colorWhite"
+            android:textColorHint="@color/colorBackgroundDark"
+            android:textAlignment="center"
+            android:hint="@string/password"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="40dp" />
+
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_marginHorizontal="10dp"
+                android:text="@string/login_button"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:layout_marginHorizontal="10dp"
+                android:text="@string/register_button"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
 
     </LinearLayout>

@@ -1,25 +1,30 @@
 package com.catchopportunity.androidapp.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class User {
 
+    @SerializedName("uid")
+    @Expose
     private int uid;
+
+    @SerializedName("email")
+    @Expose
     private String email;
+
+    @SerializedName("password")
+    @Expose
     private String password;
+
+    @SerializedName("latitude")
+    @Expose
     private String latitude;
+
+    @SerializedName("longitude")
+    @Expose
     private String longitude;
 
-    public User() {
-
-    }
-
-    public User(int uid, String email, String password, String latitude, String longitude) {
-        super();
-        this.uid = uid;
-        this.email = email;
-        this.password = password;
-        this.latitude = latitude;
-        this.longitude = longitude;
-    }
 
     public int getUid() {
         return uid;
