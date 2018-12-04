@@ -1,8 +1,22 @@
 <resources>
     <string name="app_name">CatchOpportunity</string>
     <string name="login_title">Login</string>
+    
     <string name="email">Email</string>
-    <string name="password">password</string>
+    <string name="password">Password</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    
     <string name="login_button">LOG IN</string>
     <string name="register_button">REGISTER</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_register">Register</string>
+
+
+    <string name="findlocation_button">FIND MY LOCATION</string>
+
+    
 </resources>
