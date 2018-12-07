@@ -11,7 +11,7 @@ import com.catchopportunity.androidapp.R;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private MenuItem item_logout , item_profile , item_search , item_opp , item_qrReader;
+    private MenuItem item_logout , item_profile , item_home , item_search , item_opp , item_qrReader;
     private static String token;
 
     @Override
@@ -21,11 +21,8 @@ public class HomeActivity extends AppCompatActivity {
         token= getIntent().getStringExtra("TOKEN_VALUE");
 
 
-        item_logout = findViewById(R.id.menu_logout);
-        item_profile = findViewById(R.id.menu_profile);
-        item_search = findViewById(R.id.menu_search);
-        item_opp = findViewById(R.id.menu_myOpportunities);
-        item_qrReader = findViewById(R.id.menu_qrCodeReader);
+
+
 
 
 
@@ -36,6 +33,16 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu , menu);
+
+        item_logout = menu.findItem(R.id.menu_logout);
+        item_profile = menu.findItem(R.id.menu_profile);
+        item_home = menu.findItem(R.id.menu_home);
+        item_search = menu.findItem(R.id.menu_search);
+        item_opp = menu.findItem(R.id.menu_myOpportunities);
+        item_qrReader = menu.findItem(R.id.menu_qrCodeReader);
+
+        item_home.setEnabled(false);
+
         return true;
     }
 }

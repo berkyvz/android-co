@@ -18,6 +18,12 @@
         />
 
     <item
+        android:id="@+id/menu_home"
+        android:title="@string/menutitle_home"
+        app:showAsAction="never"
+        />
+
+    <item
         android:id="@+id/menu_search"
         android:title="@string/menutitle_search"
         app:showAsAction="never"

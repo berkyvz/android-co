@@ -22,6 +22,7 @@
     <string name="menutitle_search">Search</string>
     <string name="menutitle_myopportunities">Caught Opportunities</string>
     <string name="menutitle_qrcode">QrCode Reader</string>
+    <string name="menutitle_home">Home</string>
 
 
 </resources>
