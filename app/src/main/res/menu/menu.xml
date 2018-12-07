@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/menu_logout"
+        android:icon="@drawable/icon_logout"
+        android:title="@string/menutitle_logout"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/menu_profile"
+        android:title="@string/menutitle_profile"
+        android:icon="@drawable/icon_profile"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/menu_search"
+        android:title="@string/menutitle_search"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/menu_myOpportunities"
+        android:title="@string/menutitle_myopportunities"
+        app:showAsAction="never"
+        />
+
+
+    <item
+        android:id="@+id/menu_qrCodeReader"
+        android:title="@string/menutitle_qrcode"
+        app:showAsAction="never"
+        />
+
+
+
+
+
+
+</menu>

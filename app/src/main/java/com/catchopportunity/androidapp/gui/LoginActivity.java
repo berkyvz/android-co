@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         email = txtEmail.getText().toString();
         password = txtPassword.getText().toString();
 
-        String token = tokenManager.encodeUserEmailPassword(email , password);
+        final String token = tokenManager.encodeUserEmailPassword(email , password);
         Call<User> call = userClient.loginUser(token);
 
         call.enqueue(new Callback<User>() {
@@ -100,7 +100,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 if(response.code() == 200) {
                     loggedInUser = response.body();
-                    Toast.makeText(LoginActivity.this, loggedInUser.toString(), Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(LoginActivity.this , HomeActivity.class);
+                    i.putExtra("TOKEN_VALUE" , token);
+                    startActivity(i);
+
+
                 }
                 btnLogIn.setEnabled(true);
 
