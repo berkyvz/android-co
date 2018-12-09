@@ -6,4 +6,6 @@
     <color name="colorBackgroundDark">#002d6c</color>
     <color name="colorBackgorundLight">#006a9b</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorGreen">#07c904</color>
 </resources>

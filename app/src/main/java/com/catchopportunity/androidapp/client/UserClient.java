@@ -1,5 +1,6 @@
 package com.catchopportunity.androidapp.client;
 
+import com.catchopportunity.androidapp.helpermodel.OpportunityItem;
 import com.catchopportunity.androidapp.model.User;
 
 import java.util.List;
@@ -21,11 +22,14 @@ import retrofit2.http.Path;
 
 public interface UserClient {
 
-    @GET("user/login")
-    Call<User> loginUser(@Header("Auth") String token);
+    @POST("user/login")
+    Call<User> loginUser(@Body User user);
 
     @POST("user/register")
     Call<User> registerUser(@Body User user);
+
+    @GET("user/opportunityitems")
+    Call<List<OpportunityItem>> getOpportunityList(@Header("Auth") String token);
 
 
 }

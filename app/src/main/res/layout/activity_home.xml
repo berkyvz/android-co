@@ -23,16 +23,42 @@
             android:text="@string/menutitle_home"
             android:textSize="30sp" />
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btnUpdateLocation"
+                android:drawableEnd="@drawable/icon_updatelocation"
+                android:text="@string/update_my_location"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btnRefresh"
+                android:drawableEnd="@drawable/icon_refresh"
+                android:text="@string/refresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dip"
             android:background="@color/colorWhite" />
 
         <ListView
+            android:id="@+id/homeList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         </ListView>
+
+
 
 
     </LinearLayout>

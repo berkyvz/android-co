@@ -1,6 +1,7 @@
 package com.catchopportunity.androidapp.gui;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -75,19 +76,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void register(){
-        btnFindLocation.setEnabled(false);
-        btnFindLocation.setText("Loading...");
-        btnRegister.setEnabled(false);
-        btnRegister.setText("Loading...");
+        final ProgressDialog loadingScreen = ProgressDialog.show(RegisterActivity.this, "",
+                "Registering...", true);
+
 
 
         User user = new User();
         if(txtEmail.getText().toString().equals("")|| txtPassword.getText().toString().equals("") || txtLatitude.getText().toString().equals("") || txtLongitude.getText().toString().equals("") ){
             Toast.makeText(this, "Please be sure that you fill all of the blank areas.", Toast.LENGTH_SHORT).show();
-            btnFindLocation.setEnabled(true);
-            btnRegister.setEnabled(true);
-            btnFindLocation.setText(R.string.findlocation_button);
-            btnRegister.setText(R.string.register_button);
+            loadingScreen.dismiss();
             return;
         }
 
@@ -106,39 +103,29 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 public void onResponse(Call<User> call, Response<User> response) {
                     if (response.isSuccessful()){
                         Toast.makeText(RegisterActivity.this, "User added.", Toast.LENGTH_SHORT).show();
+                        loadingScreen.dismiss();
                     }
-
-
-                    btnFindLocation.setEnabled(true);
-                    btnRegister.setEnabled(true);
-                    btnFindLocation.setText(R.string.findlocation_button);
-                    btnRegister.setText(R.string.register_button);
+                    loadingScreen.dismiss();
                 }
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
                     Toast.makeText(RegisterActivity.this, "Error occured.", Toast.LENGTH_SHORT).show();
-                    btnFindLocation.setEnabled(true);
-                    btnRegister.setEnabled(true);
-                    btnFindLocation.setText(R.string.findlocation_button);
-                    btnRegister.setText(R.string.register_button);
+                    loadingScreen.dismiss();
                 }
             });
 
 
         }catch (Exception e){
-
             Toast.makeText(this, "Error" + e.getMessage(), Toast.LENGTH_SHORT).show();
-            btnFindLocation.setEnabled(true);
-            btnRegister.setEnabled(true);
-            btnFindLocation.setText(R.string.findlocation_button);
-            btnRegister.setText(R.string.register_button);
+            loadingScreen.dismiss();
         }
 
 
     }
 
     public void findMyLocation(){
+
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED &&
@@ -156,18 +143,20 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             return;
         }
 
+        final ProgressDialog loadingScreen = ProgressDialog.show(RegisterActivity.this, "",
+                "We are trying to find you...", true);
+
         mLocManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         mLocListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                Toast.makeText(RegisterActivity.this, "Your Location is set.", Toast.LENGTH_SHORT).show();
+
                 txtLatitude.setText(location.getLatitude()+"");
                 txtLongitude.setText(location.getLongitude()+"");
+                loadingScreen.dismiss();
 
-                btnFindLocation.setEnabled(true);
-                btnRegister.setEnabled(true);
-                btnFindLocation.setText(R.string.findlocation_button);
-                btnRegister.setText(R.string.register_button);
+
+
             }
 
             @Override
@@ -185,19 +174,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             }
         };
-        Log.d("NELEROLUYOR" , "requestten once");
+
        try {
-           mLocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1, 0, mLocListener);
-           mLocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 0, mLocListener);
+          mLocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0, mLocListener);
+          mLocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0, mLocListener);
 
 
        }catch (Exception e){
-
+           loadingScreen.dismiss();
        }
-        btnFindLocation.setEnabled(false);
-        btnFindLocation.setText("Loading...");
-        btnRegister.setEnabled(false);
-        btnRegister.setText("Loading...");
+
 
     }
 

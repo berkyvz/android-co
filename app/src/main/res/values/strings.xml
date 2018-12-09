@@ -23,6 +23,8 @@
     <string name="menutitle_myopportunities">Caught Opportunities</string>
     <string name="menutitle_qrcode">QrCode Reader</string>
     <string name="menutitle_home">Home</string>
+    <string name="update_my_location">UPDATE MY LOCATION</string>
+    <string name="refresh">refresh</string>
 
 
 </resources>

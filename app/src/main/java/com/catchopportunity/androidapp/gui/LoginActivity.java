@@ -1,5 +1,6 @@
 package com.catchopportunity.androidapp.gui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +13,6 @@ import android.widget.Toast;
 import com.catchopportunity.androidapp.R;
 import com.catchopportunity.androidapp.api.Api;
 import com.catchopportunity.androidapp.client.UserClient;
-import com.catchopportunity.androidapp.manager.TokenManager;
 import com.catchopportunity.androidapp.model.User;
 
 import java.util.ArrayList;
@@ -35,11 +35,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     Retrofit retrofit;
     UserClient userClient ;
-    User loggedInUser = new User();
-    TokenManager tokenManager ;
 
 
 
+    private String token="NOTVALID";
     private String email = "";
     private String password = "";
 
@@ -61,7 +60,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         retrofit = Api.getClient();
         userClient = retrofit.create(UserClient.class);
 
-        tokenManager = new TokenManager();
 
 
     }
@@ -84,39 +82,50 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void logIn(){
-        btnLogIn.setEnabled(false);
+        final ProgressDialog loading = ProgressDialog.show(LoginActivity.this, "",
+                "Please wait...", true);
+
+
         email = txtEmail.getText().toString();
         password = txtPassword.getText().toString();
 
-        final String token = tokenManager.encodeUserEmailPassword(email , password);
-        Call<User> call = userClient.loginUser(token);
+        User loginUser = new User();
+        loginUser.setEmail(email);
+        loginUser.setPassword(password);
+        Call<User> call = userClient.loginUser(loginUser);
 
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
+
                 if (response.code() == 401){
                     txtEmail.setError("Wrong !");
                     txtPassword.setError("Wrong !");
+                    loading.dismiss();
                 }
                 if(response.code() == 200) {
-                    loggedInUser = response.body();
+                    token = response.body().getLatitude();
+                    loading.dismiss();
                     Intent i = new Intent(LoginActivity.this , HomeActivity.class);
                     i.putExtra("TOKEN_VALUE" , token);
                     startActivity(i);
-
-
                 }
-                btnLogIn.setEnabled(true);
 
+                loading.dismiss();
 
-                }
+            }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
+                Log.d("HATA" , t.getMessage()+" <- code");
                 Toast.makeText(LoginActivity.this, "Your request is failed.", Toast.LENGTH_SHORT).show();
-                btnLogIn.setEnabled(true);
+
+                loading.dismiss();
+
             }
         });
+
+
 
 
     }
