@@ -1,5 +1,6 @@
 package com.catchopportunity.androidapp.adapter;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,11 +15,15 @@ import android.widget.Toast;
 import com.catchopportunity.androidapp.R;
 import com.catchopportunity.androidapp.api.Api;
 import com.catchopportunity.androidapp.client.UserClient;
+import com.catchopportunity.androidapp.gui.HomeActivity;
 import com.catchopportunity.androidapp.helpermodel.OpportunityItem;
 import com.catchopportunity.androidapp.model.Opportunity;
 
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class OpportunityListAdapter extends ArrayAdapter<OpportunityItem> {
@@ -51,7 +56,7 @@ public class OpportunityListAdapter extends ArrayAdapter<OpportunityItem> {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(resource , null);
 
-
+        OpportunityItem oItem = list.get(position);
 
         TextView txtDistance = view.findViewById(R.id.oplist_distance);
         final TextView txtId = view.findViewById(R.id.oplist_id);
@@ -66,14 +71,40 @@ public class OpportunityListAdapter extends ArrayAdapter<OpportunityItem> {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, token+ " sende req ->" + txtId.getText(), Toast.LENGTH_SHORT).show();
-                OpportunityListAdapter.this.list.remove(position);
-                OpportunityListAdapter.this.notifyDataSetChanged();
+                final ProgressDialog loading = ProgressDialog.show(context, "",
+                        "Reserving Opportunity for you..", true);
+                Call<Opportunity> call = userClient.reserveOpportunity(token,list.get(position).getOpportunity().getOid());
+                call.enqueue(new Callback<Opportunity>() {
+                    @Override
+                    public void onResponse(Call<Opportunity> call, Response<Opportunity> response) {
+                        if(response.code() == 200){
+                            Opportunity o = response.body();
+                            Toast.makeText(context, "Opportunity reserved for you.", Toast.LENGTH_SHORT).show();
+                            list.get(position).getOpportunity().setCount( (Integer.parseInt((list.get(position).getOpportunity().getCount()) ) -1) + "" );
+                            OpportunityListAdapter.this.notifyDataSetChanged();
+                        }
+                        else{
+                            Toast.makeText(context, "Error while reserving opportunity..", Toast.LENGTH_SHORT).show();
+                        }
+
+                        loading.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Opportunity> call, Throwable t) {
+                        Toast.makeText(context, "ERROR", Toast.LENGTH_SHORT).show();
+                        loading.dismiss();
+
+                    }
+
+                });
+
+
             }
         });
 
 
-        OpportunityItem oItem = list.get(position);
+
 
 
         if(Double.parseDouble(oItem.getDistance()) > 1000){
@@ -83,7 +114,7 @@ public class OpportunityListAdapter extends ArrayAdapter<OpportunityItem> {
            txtDistance.setText(value);
         }
         else {
-            int m = Integer.parseInt(oItem.getDistance());
+            int m = (int)Double.parseDouble(oItem.getDistance());
             String value = m + " m";
             txtDistance.setText(value);
         }

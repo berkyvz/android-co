@@ -3,6 +3,8 @@ package com.catchopportunity.androidapp.api;
 
 import android.widget.Toast;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -15,11 +17,19 @@ public class Api {
 
     public static Retrofit getClient(){
        try {
+
+           OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                   .connectTimeout(20, TimeUnit.SECONDS)
+                   .readTimeout(20, TimeUnit.SECONDS)
+                   .writeTimeout(20, TimeUnit.SECONDS)
+                   .build();
+
+
            if(retrofit== null){
                retrofit = new Retrofit.Builder()
                        .baseUrl(Base_Url)
                        .addConverterFactory(GsonConverterFactory.create())
-                       .client(new OkHttpClient())
+                       .client(okHttpClient)
                        .build();
                return retrofit;
            }

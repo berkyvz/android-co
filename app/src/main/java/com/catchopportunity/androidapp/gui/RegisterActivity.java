@@ -150,9 +150,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mLocListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-
+                Toast.makeText(RegisterActivity.this, "Location changed.", Toast.LENGTH_SHORT).show();
                 txtLatitude.setText(location.getLatitude()+"");
                 txtLongitude.setText(location.getLongitude()+"");
+                if(location.getLongitude() > 0 && location.getLatitude() > 0  ){
+                    mLocManager.removeUpdates(mLocListener);
+                }
                 loadingScreen.dismiss();
 
 
@@ -176,8 +179,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         };
 
        try {
-          mLocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0, mLocListener);
-          mLocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0, mLocListener);
+          mLocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1, 0, mLocListener);
+          mLocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 0, mLocListener);
 
 
        }catch (Exception e){

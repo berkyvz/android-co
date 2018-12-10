@@ -14,6 +14,7 @@ import com.catchopportunity.androidapp.R;
 import com.catchopportunity.androidapp.api.Api;
 import com.catchopportunity.androidapp.client.UserClient;
 import com.catchopportunity.androidapp.model.User;
+import com.catchopportunity.androidapp.model.UserToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +37,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Retrofit retrofit;
     UserClient userClient ;
 
-
-
+    public static UserToken userLoggedIn;
     private String token="NOTVALID";
     private String email = "";
     private String password = "";
@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
+        userLoggedIn = null;
         //initiliaze the components
         txtEmail = (EditText) findViewById(R.id.txtEmail);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
@@ -92,11 +92,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         User loginUser = new User();
         loginUser.setEmail(email);
         loginUser.setPassword(password);
-        Call<User> call = userClient.loginUser(loginUser);
+        Call<UserToken> call = userClient.loginUser(loginUser);
 
-        call.enqueue(new Callback<User>() {
+        call.enqueue(new Callback<UserToken>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<UserToken> call, Response<UserToken> response) {
 
                 if (response.code() == 401){
                     txtEmail.setError("Wrong !");
@@ -104,10 +104,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     loading.dismiss();
                 }
                 if(response.code() == 200) {
-                    token = response.body().getLatitude();
+                    userLoggedIn = response.body();
+                    token = response.body().getToken();
                     loading.dismiss();
                     Intent i = new Intent(LoginActivity.this , HomeActivity.class);
                     i.putExtra("TOKEN_VALUE" , token);
+                    token = "NOTVALID";
                     startActivity(i);
                 }
 
@@ -116,7 +118,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<UserToken> call, Throwable t) {
                 Log.d("HATA" , t.getMessage()+" <- code");
                 Toast.makeText(LoginActivity.this, "Your request is failed.", Toast.LENGTH_SHORT).show();
 
