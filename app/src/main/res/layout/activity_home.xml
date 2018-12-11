@@ -32,7 +32,7 @@
                 android:id="@+id/btnUpdateLocation"
                 android:drawableEnd="@drawable/icon_updatelocation"
                 android:text="@string/update_my_location"
-                android:layout_width="230dp"
+                android:layout_width="199dp"
                 android:layout_height="wrap_content" />
 
             <Button

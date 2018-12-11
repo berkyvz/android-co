@@ -10,6 +10,7 @@ import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -37,11 +38,16 @@ public interface UserClient {
     @POST("user/reserve/{id}")
     Call<Opportunity> reserveOpportunity(@Header("Auth") String token , @Path("id") int id);
 
+    @DELETE("user/reserve/{id}")
+    Call<Opportunity> deleteReservedOpportunity(@Header("Auth") String token , @Path("id") int id);
+
     @GET("user/opportunity")
     Call<List<OpportunityItem>> getReservedOpportunity(@Header("Auth") String token);
 
     @PUT("user")
     Call<UserToken> updateUser(@Header("Auth") String token,@Body User userNew);
+
+   
 
 
 }

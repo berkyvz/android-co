@@ -47,8 +47,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     List<OpportunityItem> theList;
 
     private MenuItem item_logout , item_profile , item_home , item_search , item_opp , item_qrReader;
+
     private ListView listView;
     private Button btnUpdateLocation , btnRefresh;
+
 
     LocationManager mLocManager;
     LocationListener mLocListener;
