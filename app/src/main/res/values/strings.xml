@@ -19,7 +19,6 @@
 
     <string name="menutitle_profile">Profile</string>
     <string name="menutitle_logout">Logout</string>
-    <string name="menutitle_search">Search</string>
     <string name="menutitle_myopportunities">Caught Opportunities</string>
     <string name="menutitle_qrcode">QrCode Reader</string>
     <string name="menutitle_home">Home</string>
@@ -31,6 +30,15 @@
     <string name="profile_email">Email :</string>
     <string name="profile_longitude">Longitude :</string>
     <string name="profile_profile">Profile</string>
+    <string name="menutitle_search">Search</string>
+
+
+    <string-array name="spinnerArray">
+        <item>MaxDistance (M)</item>
+        <item>Description</item>
+        <item>City</item>
+        <item>ID</item>
+    </string-array>
 
 
 </resources>

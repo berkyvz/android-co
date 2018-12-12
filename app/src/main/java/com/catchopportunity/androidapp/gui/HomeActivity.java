@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.catchopportunity.androidapp.QrCodeActivity;
 import com.catchopportunity.androidapp.R;
 import com.catchopportunity.androidapp.adapter.OpportunityListAdapter;
 import com.catchopportunity.androidapp.api.Api;
@@ -54,7 +55,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     LocationManager mLocManager;
     LocationListener mLocListener;
-
 
 
 
@@ -148,6 +148,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
         if(item.getItemId() == item_search.getItemId()){
             Intent i = new Intent(this , SearchActivity.class);
+            startActivity(i);
+            finish();
+            return true;
+        }
+        if (item.getItemId() == item_qrReader.getItemId()){
+            Intent i = new Intent(this , QrCodeActivity.class);
             startActivity(i);
             finish();
             return true;

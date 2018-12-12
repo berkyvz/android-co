@@ -110,7 +110,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
-                    Toast.makeText(RegisterActivity.this, "Error occured.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Check your Internet connection.", Toast.LENGTH_SHORT).show();
                     loadingScreen.dismiss();
                 }
             });

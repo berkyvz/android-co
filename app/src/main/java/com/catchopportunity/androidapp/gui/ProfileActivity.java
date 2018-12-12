@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.catchopportunity.androidapp.QrCodeActivity;
 import com.catchopportunity.androidapp.R;
 import com.catchopportunity.androidapp.api.Api;
 import com.catchopportunity.androidapp.client.UserClient;
@@ -96,13 +97,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED &&
                     ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
+
                 requestPermissions(new String[]{
                         Manifest.permission.ACCESS_FINE_LOCATION ,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.INTERNET
                 } , 10);
@@ -196,7 +191,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
                 @Override
                 public void onFailure(Call<UserToken> call, Throwable t) {
-
+                    Toast.makeText(ProfileActivity.this, "Check your Internet connection.", Toast.LENGTH_SHORT).show();
+                    loading.dismiss();
                 }
             });
 
@@ -251,6 +247,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
         if(item.getItemId() == item_search.getItemId()){
             Intent i = new Intent(this , SearchActivity.class);
+            startActivity(i);
+            finish();
+            return true;
+        }
+        if (item.getItemId() == item_qrReader.getItemId()){
+            Intent i = new Intent(this , QrCodeActivity.class);
             startActivity(i);
             finish();
             return true;

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.catchopportunity.androidapp.QrCodeActivity;
 import com.catchopportunity.androidapp.R;
 import com.catchopportunity.androidapp.api.Api;
 import com.catchopportunity.androidapp.client.UserClient;
@@ -44,6 +45,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -59,6 +61,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         retrofit = Api.getClient();
         userClient = retrofit.create(UserClient.class);
+
+        Intent i = new Intent(this , QrCodeActivity.class);
+        startActivity(i);
 
 
 
@@ -120,8 +125,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onFailure(Call<UserToken> call, Throwable t) {
                 Log.d("HATA" , t.getMessage()+" <- code");
-                Toast.makeText(LoginActivity.this, "Your request is failed.", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(LoginActivity.this, "Check your Internet connection.", Toast.LENGTH_SHORT).show();
                 loading.dismiss();
 
             }

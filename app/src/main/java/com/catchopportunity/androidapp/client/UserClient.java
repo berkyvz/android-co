@@ -16,6 +16,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /*
 * POST", "/user/login/{token}", "Takes user token and give all datas about this user."));
@@ -47,7 +48,10 @@ public interface UserClient {
     @PUT("user")
     Call<UserToken> updateUser(@Header("Auth") String token,@Body User userNew);
 
-   
+    @GET("user/search")
+    Call<List<OpportunityItem>> searchOpportunities(@Query("type") String type , @Query("input") String input , @Header("Auth") String token);
+
+
 
 
 }

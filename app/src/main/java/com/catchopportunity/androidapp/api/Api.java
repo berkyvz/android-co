@@ -12,16 +12,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Api {
 
     private static Retrofit retrofit=null;
-    private static String Base_Url= " http://10.0.2.2:8082/";
+   private static String Base_Url= " http://10.0.2.2:8082/";
+    //private static String Base_Url= " http://159.65.226.217:8082/";
 
 
     public static Retrofit getClient(){
        try {
 
            OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                   .connectTimeout(20, TimeUnit.SECONDS)
-                   .readTimeout(20, TimeUnit.SECONDS)
-                   .writeTimeout(20, TimeUnit.SECONDS)
+                   .connectTimeout(30, TimeUnit.SECONDS)
+                   .readTimeout(30, TimeUnit.SECONDS)
+                   .writeTimeout(30, TimeUnit.SECONDS)
                    .build();
 
 
